@@ -1,0 +1,42 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="" id="2">
+        <comment>Create flight info database</comment>
+        <sql dbms="postgresql">
+            INSERT INTO aircraft (aircraft_type, manufacturer, number_of_seats)
+            VALUES ('Boeing 737-800', 'Boeing', 174),
+                   ('Airbus A320-200', 'Airbus', 180),
+                   ('Boeing 777-300ER', 'Boeing', 368);
+        </sql>
+        <sql dbms="postgresql">
+            INSERT INTO Airports (airport_name, city, country, iata_code)
+            VALUES ('John F. Kennedy International Airport', 'New York', 'USA', 'JFK'),
+                   ('Los Angeles International Airport', 'Los Angeles', 'USA', 'LAX'),
+                   ('OHare International Airport', 'Chicago', 'USA', 'ORD');
+        </sql>
+        <sql dbms="postgresql">
+            INSERT INTO Passengers (first_name, last_name, email_address, phone_number)
+            VALUES ('John', 'Doe', 'johndoe@email.com', '+1234567890'),
+                   ('Jane', 'Smith', 'janesmith@email.com', '+9876543210'),
+                   ('Peter', 'Jones', 'peterjones@email.com', '+1122334455');
+        </sql>
+        <sql dbms="postgresql">
+            INSERT INTO flights (flight_number, departure_airport_id, arrival_airport_id, departure_time, arrival_time,
+                                 aircraft_id, base_fare)
+            VALUES ('AA1234', 1, 2, '2023-10-04 18:00:00', '2023-10-04 21:00:00', 1, 250.00),
+                   ('UA5678', 2, 3, '2023-10-05 14:00:00', '2023-10-05 17:00:00', 2, 300.00),
+                   ('DL9012', 3, 1, '2023-10-06 08:00:00', '2023-10-06 10:00:00', 3, 200.00);
+        </sql>
+        <sql dbms="postgresql">
+            INSERT INTO tickets (passenger_id, flight_id, seat_number, purchase_date, purchase_price)
+            VALUES (1, 1, '12A', '2023-10-03 10:00:00', 280.00),
+                   (2, 2, '7B', '2023-10-04 12:00:00', 320.00),
+                   (3, 3, '4C', '2023-10-05 15:00:00', 220.00);
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

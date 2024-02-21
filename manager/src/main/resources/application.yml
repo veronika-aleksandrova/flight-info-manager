@@ -1,0 +1,49 @@
+# Sets the active profile for the application to dev
+spring:
+  profiles:
+    active: dev
+  # Sets the name of the application to flight-info-manager
+  application:
+    name: flight-info-manager
+  threads:
+    virtual:
+      enabled: true
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+  # Configures JPA-related properties, including Hibernate-specific properties
+  jpa:
+    show-sql: true
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: true
+  # Configures Liquibase for database schema management
+  liquibase:
+    change-log: classpath:db/changelog/master.xml
+    enabled: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/flight_info
+    username: postgres
+    password: postgres
+# Configures the web server, including its port and support for HTTP/2 and response compression
+server:
+  port: 8080
+  shutdown: graceful
+  http2:
+    enabled: true
+  compression:
+    enabled: true
+    mime-types: text/html,text/plain,text/css,application/javascript,application/json
+# Configures various management-related features of the application
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+application:
+  restclient:
+    response-timeout: 1000 # In millis

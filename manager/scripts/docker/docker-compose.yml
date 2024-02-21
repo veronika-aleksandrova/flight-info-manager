@@ -1,0 +1,21 @@
+---
+version: "2.1"
+services:
+  flightinfo:
+    image: postgres:15.4-alpine
+    container_name: flightinfo
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready", "-d", "postgres" ]
+      interval: 5s
+      timeout: 5s
+      retries: 3
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata2:/var/lib/postgresql/data
+volumes:
+  pgdata2:

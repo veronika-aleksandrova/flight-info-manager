@@ -1,0 +1,32 @@
+<div class="list row">
+  <div class="col-md-8">
+    <div class="input-group mb-3">
+
+      <input type="text" placeholder="Filter by name" #filter>
+      <button class="primary" type="button" (click)="searchFlight(filter.value)">Search</button>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <h4>Flights List</h4>
+    <ul class="list-group">
+      <li
+        class="list-group-item"
+        *ngFor="let flight of filteredFlights; let i = index"
+        [class.active]="i == currentIndex"
+        (click)="setActiveFlight(flight, i)">
+        {{ flight.flightNumber }} {{ flight.departureAirport?.iataCode }}-{{ flight.arrivalAirport?.iataCode }} {{
+          flight.departureTime }}:{{ flight.arrivalTime }}
+      </li>
+    </ul>
+
+    <button class="m-3 btn btn-sm btn-danger" (click)="removeAllFlights()">
+      Remove All
+    </button>
+  </div>
+  <div class="col-md-6">
+    <app-flight-details
+      [viewMode]="true"
+      [currentFlight]="currentFlight">
+    ></app-flight-details>
+  </div>
+</div>

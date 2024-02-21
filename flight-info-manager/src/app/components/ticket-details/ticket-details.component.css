@@ -1,0 +1,12 @@
+.edit-form {
+  max-width: 400px;
+  margin: auto;
+}
+
+.mat-row {
+  height: auto;
+}
+
+.mat-cell {
+  padding: 8px 8px 8px 0;
+}

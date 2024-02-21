@@ -1,0 +1,38 @@
+<div class="list row" *ngIf="tickets">
+  <div class="col-md-6">
+    <h4>Tickets</h4>
+    <table>
+      <tr >
+        <th class="mat-cell">Number</th>
+        <th class="mat-cell">Date</th>
+        <th class="mat-cell">Price</th>
+        <th class="mat-cell">Seat</th>
+        <th class="mat-cell">Flight</th>
+        <th class="mat-cell">Action</th>
+      </tr>
+      <tr *ngFor="let ticket of tickets; let i = index"
+          [class.active]="i == currentIndex"
+          class="mat-row"
+          (click)="setActiveTicket(ticket, i)"
+      >
+        <td class="mat-cell">{{ ticket.id }}</td>
+        <td class="mat-cell">{{ ticket.purchaseDate }}</td>
+        <td class="mat-cell">{{ ticket.purchasePrice }}</td>
+        <td class="mat-cell">{{ ticket.seatNumber }}</td>
+        <td class="mat-cell">{{ ticket.flight?.flightNumber }}</td>
+        <td class="mat-cell" (click)="deleteTicket(ticket.id)">Remove</td>
+      </tr>
+
+    </table>
+
+
+    <button class="m-3 btn btn-sm btn-danger" (click)="deleteAll()">
+      Remove All
+    </button>
+  </div>
+</div>
+
+<div *ngIf="!tickets">
+  <br/>
+  <p>Cannot access tickets...</p>
+</div>

@@ -1,0 +1,57 @@
+<div>
+  <div class="submit-form">
+    <div *ngIf="!submitted">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          required
+          [(ngModel)]="passenger.firstName"
+          name="firstName"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input
+          class="form-control"
+          id="lastName"
+          required
+          [(ngModel)]="passenger.lastName"
+          name="lastName"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="emailAddress">Email Address</label>
+        <input
+          class="form-control"
+          id="emailAddress"
+          required
+          [(ngModel)]="passenger.emailAddress"
+          name="emailAddress"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number</label>
+        <input
+          class="form-control"
+          id="phoneNumber"
+          required
+          [(ngModel)]="passenger.phoneNumber"
+          name="phoneNumber"
+        />
+      </div>
+
+      <button (click)="savePassenger()" class="btn btn-success">Submit</button>
+    </div>
+
+    <div *ngIf="submitted">
+      <h4>Passenger was submitted successfully!</h4>
+      <button class="btn btn-success" (click)="newPassenger()">Add</button>
+    </div>
+  </div>
+</div>

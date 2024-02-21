@@ -1,0 +1,104 @@
+<div *ngIf="viewMode; else editable">
+  <div *ngIf="currentFlight.id">
+    <h4>Flight</h4>
+    <div>
+      <label><strong>Flight number:</strong></label> {{ currentFlight.flightNumber }}
+    </div>
+    <div>
+      <label><strong>Departing from:</strong></label>
+      {{ currentFlight.departureAirport?.iataCode }}
+      <label><strong>at:</strong></label>
+      {{ currentFlight.departureTime }}
+    </div>
+    <div>
+      <label><strong>Arriving to:</strong></label>
+      {{ currentFlight.arrivalAirport?.iataCode }}
+      <label><strong>at:</strong></label>
+      {{ currentFlight.arrivalTime }}
+    </div>
+    <div>
+      <label><strong>Price:</strong></label>
+      {{ currentFlight.baseFare }}
+    </div>
+    <div>
+      <label><strong>Flying with:</strong></label>
+      {{ currentFlight.aircraft?.aircraftType }}
+    </div>
+
+    <a class="badge badge-warning"
+      routerLink="/flights/{{ currentFlight.id }}">
+      Edit
+    </a>
+  </div>
+
+  <div *ngIf="!currentFlight">
+    <br />
+    <p>Please click on a flight...</p>
+  </div>
+</div>
+
+<ng-template #editable>
+  <div *ngIf="currentFlight.id" class="edit-form">
+    <h4>Flight</h4>
+    <form>
+      <div class="form-group">
+        <label for="flightNumber">Flight Number</label>
+        <input
+          type="text"
+          class="form-control"
+          id="flightNumber"
+          [(ngModel)]="currentFlight.flightNumber"
+          name="flightNumber"
+        />
+      </div>
+      <div class="form-group">
+        <label for="departureAirport">Departure</label>
+        <input
+          type="text"
+          class="form-control"
+          id="departureAirport"
+          [(ngModel)]="departureIata"
+          name="departureAirport"
+        />
+      </div>
+      <div class="form-group">
+        <label for="arrivalAirport">Arrival</label>
+        <input
+          type="text"
+          class="form-control"
+          id="arrivalAirport"
+          [(ngModel)]="arrivalIata"
+          name="arrivalAirport"
+        />
+      </div>
+      <div class="form-group">
+        <label for="aircraft">Flying</label>
+        <input
+          type="text"
+          class="form-control"
+          id="aircraft"
+          [(ngModel)]="aircraftType"
+          name="aircraft"
+        />
+      </div>
+    </form>
+
+    <button class="badge badge-danger mr-2" (click)="deleteFlight()">
+      Delete
+    </button>
+
+    <button
+      type="submit"
+      class="badge badge-success mb-2"
+      (click)="updateFlight()"
+    >
+      Update Flight Number
+    </button>
+    <p>{{ message }}</p>
+  </div>
+
+  <div *ngIf="!currentFlight.id">
+    <br />
+    <p>Cannot access this flight...</p>
+  </div>
+</ng-template>

@@ -1,0 +1,71 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="" id="1">
+        <comment>Create flight info database</comment>
+        <sql>
+
+            CREATE TABLE if not exists flights
+            (
+                id           SERIAL PRIMARY KEY,
+                flight_number       VARCHAR(10)    NOT NULL,
+                departure_airport_id INT            NOT NULL,
+                arrival_airport_id   INT            NOT NULL,
+                departure_time      DATE           NOT NULL,
+                arrival_time        DATE           NOT NULL,
+                aircraft_id         INT            NOT NULL,
+                base_fare           DECIMAL(10, 2) NOT NULL
+                );
+
+            CREATE TABLE if not exists passengers
+            (
+                id  SERIAL PRIMARY KEY,
+                first_name    VARCHAR(50)  NOT NULL,
+                last_name     VARCHAR(50)  NOT NULL,
+                email_address VARCHAR(100) NOT NULL,
+                phone_number  VARCHAR(20)
+                );
+
+            CREATE TABLE if not exists tickets
+            (
+                id      SERIAL PRIMARY KEY,
+                passenger_id   INT            NOT NULL,
+                flight_id      INT            NOT NULL,
+                seat_number    VARCHAR(5),
+                purchase_date  DATE           NOT NULL,
+                purchase_price DECIMAL(10, 2) NOT NULL
+                );
+
+            CREATE TABLE if not exists airports
+            (
+                id   SERIAL PRIMARY KEY,
+                airport_name VARCHAR(50) NOT NULL,
+                city        VARCHAR(50) NOT NULL,
+                country     VARCHAR(50) NOT NULL,
+                iata_code    VARCHAR(3)  NOT NULL
+                );
+
+            CREATE TABLE if not exists aircraft
+            (
+                id    SERIAL PRIMARY KEY,
+                aircraft_type  VARCHAR(50) NOT NULL,
+                manufacturer  VARCHAR(50) NOT NULL,
+                number_of_seats INT         NOT NULL
+                );
+
+            ALTER TABLE flights
+                ADD FOREIGN KEY (departure_airport_id) REFERENCES airports (id),
+    ADD FOREIGN KEY (arrival_airport_id) REFERENCES airports (id),
+    ADD FOREIGN KEY (aircraft_id) REFERENCES aircraft (id);
+
+            ALTER TABLE tickets
+                ADD FOREIGN KEY (passenger_id) REFERENCES passengers (id),
+    ADD FOREIGN KEY (flight_id) REFERENCES flights (id);
+
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>
